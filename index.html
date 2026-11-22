@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoAI Creator — Estilo Canva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+        body {
+            background-color: #f7f8fa;
+            color: #222;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px #00000015;
+            overflow: hidden;
+        }
+        .header {
+            background: #2563eb;
+            color: white;
+            padding: 22px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            padding: 24px;
+        }
+        @media (max-width:768px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+        .panel {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius:12px;
+        }
+        h2 {
+            margin-bottom:14px;
+            font-size:20px;
+        }
+        textarea {
+            width:100%;
+            height:160px;
+            padding:14px;
+            border:1px solid #d1d5db;
+            border-radius:10px;
+            font-size:16px;
+            resize:vertical;
+        }
+        .options-row {
+            margin-top:12px;
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+        }
+        select, input {
+            padding:10px;
+            border:1px solid #d1d5db;
+            border-radius:8px;
+            font-size:15px;
+        }
+        .btn-generate {
+            width:100%;
+            margin-top:16px;
+            padding:14px;
+            border:none;
+            border-radius:10px;
+            background:#ec4899;
+            color:white;
+            font-size:18px;
+            font-weight:bold;
+            cursor:pointer;
+            transition: 0.2s;
+        }
+        .btn-generate:hover {
+            background:#db2777;
+        }
+        .preview-box {
+            background:#111827;
+            border-radius:12px;
+            height:420px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:white;
+            overflow:hidden;
+        }
+        .loading-text {
+            display:none;
+            text-align:center;
+            margin-top:10px;
+            color:#ec4899;
+            font-weight:bold;
+        }
+        .prompt-examples {
+            margin-top:14px;
+        }
+        .prompt-examples button {
+            padding:8px 12px;
+            margin:4px;
+            border:1px solid #cbd5e1;
+            border-radius:20px;
+            background:white;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">🎬 VideoAI Creator</div>
+        <div class="grid-layout">
+            <!-- PAINEL ESQUERDA (PROMPT E CONFIGURAÇÕES) -->
+            <div class="panel">
+                <h2>✍️ Descreva o seu vídeo</h2>
+                <textarea id="promptInput" placeholder="Exemplo: Vídeo estilo Vampire Diaries, 15 segundos, proporção 9:16, luz escura e cinematográfica, cores frias, cena noturna na cidade, atmosfera misteriosa..."></textarea>
+
+                <div class="options-row">
+                    <select id="aspectRatio">
+                        <option>9:16 (Reels / TikTok)</option>
+                        <option>16:9 (Youtube)</option>
+                        <option>1:1 (Instagram)</option>
+                    </select>
+                    <select id="duration">
+                        <option>5 segundos</option>
+                        <option selected>15 segundos</option>
+                        <option>30 segundos</option>
+                    </select>
+                </div>
+
+                <div class="prompt-examples">
+                    <p>💡 Exemplos de prompt:</p>
+                    <button onclick="setPrompt('Vídeo estilo Vampire Diaries, noite, atmosfera sombria, luz suave, 9:16')">Vampire Diaries</button>
+                    <button onclick="setPrompt('Cena de por do sol, cores quentes, cinematográfico, 16:9')">Por do sol</button>
+                </div>
+
+                <button class="btn-generate" onclick="gerarVideo()">✨ GERAR VÍDEO</button>
+                <div id="loadingMsg" class="loading-text">⏳ Gerando o seu vídeo... (SIMULAÇÃO)</div>
+            </div>
+
+            <!-- PAINEL DIREITA (PREVISÃO) -->
+            <div>
+                <h2>👁️ Pré-visualização</h2>
+                <div class="preview-box" id="previewArea">
+                    <p>Aqui vai aparecer o seu vídeo gerado pela IA</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    const promptInput = document.getElementById('promptInput');
+    const loadingMsg = document.getElementById('loadingMsg');
+    const previewArea = document.getElementById('previewArea');
+
+    function setPrompt(texto){
+        promptInput.value = texto;
+    }
+
+    function gerarVideo(){
+        loadingMsg.style.display = "block";
+        previewArea.innerHTML = "<p>Processando o prompt... 🎞️</p>";
+
+        // SIMULAÇÃO DE CARREGAMENTO (3 SEGUNDOS)
+        setTimeout(()=>{
+            loadingMsg.style.display = "none";
+            previewArea.innerHTML = `
+                <div style="text-align:center; padding:20px;">
+                    <h3>✅ SEU VÍDEO FOI CRIADO!</h3>
+                    <p>Prompt enviado:</p>
+                    <p style="font-style:italic;">${promptInput.value}</p>
+                    <p style="margin-top:12px;">(Aqui você coloca o player de vídeo quando integrar a API real)</p>
+                </div>
+            `;
+        }, 3000);
+    }
+</script>
+</body>
+</html>
